@@ -1,0 +1,61 @@
+{% extends 'layout.html'%}
+
+{% block title %}
+    Mis Almacenes
+{% endblock %}
+
+
+
+
+{% block content %}
+    <h4>Listado de Almacenes</h4>
+    <hr id="hr_cabecera"/>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="content">
+        <div id="ware_list">
+            <table class="table table-primary">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Domicilio</th>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Ver Lotes</th>
+                    <th scope="col">Cargar Lote</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            {% for warehouse in warehouses %}
+            <tbody>
+                <tr class="table table-light">
+                    <td>{{warehouse.name}}</td>
+                    <td>{{warehouse.address}}</td>
+                    <td>{{warehouse.city}}</td>
+                    <td>{{warehouse.description}}</td>
+                    <td><a href="{% url 'productos_almacen' warehouse.id %}" class="card-link">Ver Lotes</a></td>
+                    <td><a href="{% url 'add_lot' warehouse.id %}" class="card-link">Cargar Lote</a></td>
+                    <td><a href="{% url 'editar_almacen' warehouse.id %}" class="card-link">Editar</a></td>
+                    <td><a href="{% url 'eliminar_almacen' warehouse.id %}" class="card-link">Eliminar</a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center colorVacio">No tienes almacenes registrados</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

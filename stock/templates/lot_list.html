@@ -1,0 +1,50 @@
+{% extends 'layout.html'%}
+
+{% block title %}
+    Mis Lotes
+{% endblock %}
+
+{% block content %}
+    <h4>Lotes Cargados</h4>
+    <hr id="hr_cabecera"/>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="content">
+        <div id="lot_list">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Almacen</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio U.</th>
+                    </tr>
+                </thead>
+                {% for lot in lots %}
+                <tbody>
+                    <tr class="table table-light">
+                        <td>{{lot.product.name}}</td>
+                        <td>{{lot.warehouse.name}}</td>
+                        <td>{{lot.quantity}}</td>
+                        <td>{{lot.product.price}}</td>
+                    </tr>
+                    {% empty %}
+                    <tr class="table table-light">
+                        <td colspan="8" class="text-center">No tienes lotes cargados</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            {% include 'pagination_lots.html' %}
+        </div>
+    </div>
+
+{% endblock %}

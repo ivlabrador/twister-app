@@ -1,0 +1,57 @@
+{% extends 'layout.html'%}
+{% load static %}
+{% block title %}
+    Stock
+{% endblock %}
+
+
+{% block content %}
+
+    <h4>Ver Stock</h4>
+    <hr id="hr_cabecera"/>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="content">
+        <div id="stock_list">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio U.</th>
+                        <th scope="col">Proveedor</th>
+                        <th scope="col">Almacen</th>
+                        <th scope="col">Stock Min.</th>
+                    </tr>
+                </thead>
+                {% for product in stock %}
+                <tbody>
+                    <tr class="table table-light">
+                        <td>{{product.product.name}}</td>
+                        <td>{{product.act_stock}}</td>
+                        <td>{{product.product.price}}</td>
+                        <td>{{product.proveedor}}</td>
+                        <td>{{product.warehouse.name}}</td>
+                        <td>{{ product.product.min_alert }}</td>
+                    </tr>
+                {% empty %}
+                    <tr class="table table-light">
+                        <td colspan="8" class="text-center">No tienes stock de ningun producto</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            {% include 'pagination_stock.html' %}
+        </div>
+    </div>
+
+{% endblock %}

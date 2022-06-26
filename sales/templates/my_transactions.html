@@ -1,0 +1,74 @@
+{% extends 'layout.html'%}
+{% load static %}
+{% block title %}
+    {% if user.user_type == 'CLIENTE' %}
+    Compras
+    {% else %}
+    Ventas
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if user.user_type == 'CLIENTE' %}
+    <h4>Mis Compras</h4>
+    {% else %}
+    <h4>Mis Ventas</h4>
+    {% endif %}
+
+    <hr id="hr_cabecera"/>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="content">
+        <div id="transaction_list">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio</th>
+                        {% if user.user_type == 'CLIENTE' %}
+                        <th scope="col">Proveedor</th>
+                        {% else %}
+                        <th scope="col">Cliente</th>
+                        {% endif %}
+                        <th scope="col">Factura</th>
+                    </tr>
+                </thead>
+                {% for t in transactions %}
+                <tbody>
+                    <tr class="table table-light">
+                        <td>{{t.product.name}}</td>
+                        <td>{{t.quantity}}</td>
+                        <td>{{t.price}}</td>
+                        {% if user.user_type == 'CLIENTE' %}
+                        <td>{{t.proveedor}}</td>
+                        {% else %}
+                        <td>{{t.user}}</td>
+                        {% endif %}
+                        <td>
+                            <a href="{% url 'pdf_check' t.id %}">
+                                <img src="{% static 'images/pdf.png' %}" id="pdf_ico">
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr class="table table-light">
+                        <td colspan="8" class="text-center">No tienes movimientos</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        {% include 'pagination_t.html' %}
+        </div>
+    </div>
+
+{% endblock %}

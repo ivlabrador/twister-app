@@ -1,0 +1,87 @@
+{% extends 'layout.html'%}
+{% load static %}
+{% block head %}
+<meta charset="UTF-8">
+<title>
+    {% block title %}
+        Reporte de Ventas
+    {% endblock %}
+    </title>
+    <!-- LINK: Ficheros Estaticos -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styless.css'%}">
+    <!-- LINK: Tema Minty desde Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH" crossorigin="anonymous">
+
+    <script src="{% static 'lib/highcharts-10.1.0/code/highcharts.js' %}"></script>
+    <script src="{% static 'lib/highcharts-10.1.0/code/modules/exporting.js' %}"></script>
+    <script src="{% static 'lib/highcharts-10.1.0/code/modules/export-data.js' %}"></script>
+    <script src="{% static 'lib/highcharts-10.1.0/code/modules/accessibility.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="container"></div>
+            </div>
+        </div>
+    </div>
+    <script type="application/javascript">
+        Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Reporte de ventas año 2022'
+        },
+        subtitle: {
+            text: 'Venta Anual'
+        },
+        xAxis: {
+            categories: [
+                'Enero',
+                'Febrero',
+                'Marzo',
+                'Abril',
+                'Mayo',
+                'Junio',
+                'Julio',
+                'Agosto',
+                'Septiembre',
+                'Octubre',
+                'Noviembre',
+                'Diciembre'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Valores €'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} €</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Total',
+            showInLegend: false,
+            colorByPoint: true,
+            data: {{ data }}
+
+        }]
+    });
+    </script>
+{% endblock %}

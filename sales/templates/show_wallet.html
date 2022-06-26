@@ -1,0 +1,36 @@
+{% extends 'layout.html'%}
+{% load static %}
+{% block title %}
+    Monedero
+{% endblock %}
+
+
+{% block content %}
+
+    <h4>Mi Monedero</h4>
+    <hr id="hr_cabecera"/>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="content">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Dinero Disponible</h4>
+                <p class="card-text">{{ wallet.quantity }}</p>
+                <a href="{% url 'agregar_saldo' %}" class="card-link">Agregar Saldo</a>
+                {% if user.user_type == 'CLIENTE' %}
+                    <a href="{% url 'transaction_list' %}" class="card-link">Ver Compras</a>
+                {% else %}
+                    <a href="{% url 'transaction_list' %}" class="card-link">Ver Ventas</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

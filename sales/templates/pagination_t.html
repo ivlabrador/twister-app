@@ -1,0 +1,27 @@
+<!-- pagination.html : Esta pagina sera incluida en todos las templates donde se necesitara la paginacion,
+como es el caso de las visualizacion de todas las transacciones "my_transactions.html" -->
+<div class="pagination">
+<ul class="pagination pagination-sm">
+    {% if transactions.has_previous %}
+    <li class="page-item">
+        <a class="page-link" href="?page=1">&laquo; Primero</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="?page={{ transactions.previous_page_number }}">Anterior</a>
+    </li>
+    {% endif %}
+    <li class="page-item">
+    <span class="page-link">
+        Pagina {{transactions.number}} de {{transactions.paginator.num_pages}}
+    </span>
+    </li>
+    {% if transactions.has_next %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ transactions.next_page_number }}">Siguiente</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="?page={{transactions.paginator.num_pages}}">Ultima &raquo;</a>
+    </li>
+    {% endif %}
+</ul>
+</div>

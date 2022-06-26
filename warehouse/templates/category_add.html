@@ -1,0 +1,34 @@
+{% extends 'layout.html'%}
+
+{% block title %}
+    Agregar Categoria
+{% endblock %}
+
+
+{% block content %}
+
+
+    <h4>Agregar Categoria</h4>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <hr id="hr_cabecera"/>
+    <div id="content">
+        <div class="form-content">
+            <div class="form">
+                <form id='category_add' method="POST" action="" >
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Agregar Categoria">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'layout.html'%}
+{% load static %}
+{% block title %}
+    Comprar Producto
+{% endblock %}
+
+
+{% block content %}
+
+    <h4>Comprar Producto &raquo; {{product.name}}</h4>
+    <hr id="hr_cabecera"/>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="content">
+        <div class="form-content">
+            <div class="form">
+                <form id='add_credit_form' method="POST" action="" >
+                    {% csrf_token %}
+                    <fieldset>
+                        <label for="price" class="form-label mt-4">Precio Unitario</label>
+                        <input class="form-control" type="text" placeholder="{{product.price}}" readonly="true">
+                    </fieldset>
+                    <fieldset>
+                        <label for="quantity" class="form-label mt-4">Cantidad</label>
+                        <select name="quantity">
+                            {% for n in iteration %}
+                                <option value="{{n}}">{{ n }}</option>
+                            {% endfor %}
+                        </select>
+                    </fieldset>
+                    <input type="submit" value="Realizar Compra">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

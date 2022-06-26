@@ -1,0 +1,56 @@
+{% extends 'layout.html'%}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+{% block content %}
+
+    <h4 id="title">Twister Home</h4>
+    <hr id="hr_cabecera"/>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="content">
+        <div id="home-p-mitad">
+            <h6>TWISTER ES TU APP DE GESTION COMERCIAL</h6>
+            <div class="text">
+                <p>
+                    La app web Twister está creada en Django Framework, especialmente
+                    diseñada para el proyecto final Tokio School.<br>
+                    La app cuenta con una base de datos PostgreSql
+                    donde se encuentran 19 tablas conectadas entre sí,
+                    dándole a la app la fluidez necesaria para su correcto funcionamiento.<br>
+                    Existen dos tipos de usuarios posibles, PROVEEDOR Y CLIENTE.<br>
+                    Cada uno con funciones diferentes, el proveedor puede subir sus productos
+                    y cargar categorías para los mismos.<br>
+                    Asi mismo el proveedor contará con Almacenes, donde sus productos se encontrarán.
+                    Un producto no puede ingresar en stock sin la existencia de un Almacén.<br>
+                    Para que un cliente pueda ver los productos cargados por los proveedores,
+                    estos deben ingresar sus productos el stock, cargándolos a través de Lotes.<br>
+                    Si un cliente desea comprar un producto deberá disponer de saldo en su cuenta,
+                    si asi lo hace, una aplicación interna de ventas, realizará la transacción,
+                    transfiriendo tanto el dinero como el producto entre partes.<br>
+                    Todas las transacciones, lotes, stock, compras, ventas, quedará registrado
+                    en la base de datos del programa.<br>
+                    Asi el usuario podrá analizar sus compras, ventas o cualquier tipo de gestion.
+                    La aplicación también cuenta con un panel de administración, con funcionalidades extra
+                    donde se pueden realizar todas las operaciones del sistema.<br>
+                    Esto le dará al Admin una gran facilidad para el manejo y control de la aplicación.
+                    Te invitamos a que pruebes la app, su funcionamiento y fácil manejo.<br>
+                    A disfrutar de la aventura Twister!<br>
+                </p>
+            </div>
+        </div>
+        <div id="home-s-mitad">
+            <img src="{% static 'images/warehouse-1.jpg' %}">
+        </div>
+    </div>
+    {% endblock %}

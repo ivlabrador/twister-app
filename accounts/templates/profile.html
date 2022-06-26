@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Perfil
+{% endblock %}
+
+
+{% block content %}
+
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+            {{ message.delete }}
+        {% endfor %}
+    {% endif %}
+
+    <h4>Perfil &raquo; {{user.username}}</h4>
+    <hr id="hr_cabecera"/>
+    <div id="content">
+        <div class="form-content">
+            <div class="form">
+                <form id='show_profile' method="POST" action="" >
+                    {% csrf_token %}
+                    <fieldset>
+                        <label class="form-label mt-4">Nombre de Usuario</label>
+                        <input class="form-control" type="text" placeholder="{{user.username}}" readonly="true">
+                    </fieldset>
+                    <fieldset>
+                        <label class="form-label mt-4">Nombre o Razon Social</label>
+                        <input class="form-control" type="text" placeholder="{{user.first_name}}" readonly="true">
+                    </fieldset>
+                    {% if user.last_name|length >= 1 %}
+                    <fieldset>
+                        <label class="form-label mt-4">Apellido</label>
+                        <input class="form-control" type="text" placeholder="{{user.last_name}}" readonly="true">
+                    </fieldset>
+                    {% endif %}
+                    <fieldset>
+                        <label class="form-label mt-4">Email</label>
+                        <input class="form-control" type="text" placeholder="{{user.email}}" readonly="true">
+                    </fieldset>
+                    <fieldset>
+                        <label class="form-label mt-4">Tipo de Usuario</label>
+                        <input class="form-control" type="text" placeholder="{{user.user_type}}" readonly="true">
+                    </fieldset>
+                    <fieldset>
+                        <label class="form-label mt-4">NIE/NIF</label>
+                        <input class="form-control" type="text" placeholder="{{user.fiscal_id}}" readonly="true">
+                    </fieldset>
+                    <fieldset>
+                        <label class="form-label mt-4">DNI/PASAPORTE</label>
+                        <input class="form-control" type="text" placeholder="{{user.personal_id}}" readonly="true">
+                    </fieldset>
+                    <fieldset>
+                        <label class="form-label mt-4">Domicilio</label>
+                        <input class="form-control" type="text" placeholder="{{user.address}}" readonly="true">
+                    </fieldset>
+                    <fieldset>
+                        <label class="form-label mt-4">Ciudad</label>
+                        <input class="form-control" type="text" placeholder="{{user.city}}" readonly="true">
+                    </fieldset>
+                    <fieldset>
+                        <label class="form-label mt-4">Pais</label>
+                        <input class="form-control" type="text" placeholder="{{user.country}}" readonly="true">
+                    </fieldset>
+                    <fieldset>
+                        <label class="form-label mt-4">Codigo Postal</label>
+                        <input class="form-control" type="text" placeholder="{{user.cp}}" readonly="true">
+                    </fieldset>
+                    <fieldset>
+                        <label class="form-label mt-4">Contacto</label>
+                        <input class="form-control" type="text" placeholder="{{user.contact}}" readonly="true">
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

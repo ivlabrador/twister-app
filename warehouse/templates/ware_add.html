@@ -1,0 +1,33 @@
+{% extends 'layout.html'%}
+
+{% block title %}
+    Agregar un Almacen
+{% endblock %}
+
+
+{% block content %}
+
+    <h4>Agregar un Almacen</h4>
+    <hr id="hr_cabecera"/>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="content">
+        <div class="form-content">
+            <div class="form">
+                <form id='ware_form' method="POST" action="" >
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Agregar Almacen">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

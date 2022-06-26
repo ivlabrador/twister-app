@@ -1,0 +1,7 @@
+Django~=4.0.3
+reportlab~=3.6.9
+DateTime~=4.4
+Psycopg2~=2.9.3
+Django-money~=2.1.1
+Pillow~=9.0.1
+Reportlab~=3.6.9

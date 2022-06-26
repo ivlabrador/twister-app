@@ -1,0 +1,60 @@
+{% extends 'layout.html'%}
+{% load static %}
+{% block title %}
+    Mis Productos
+{% endblock %}
+
+
+{% block content %}
+
+    <h4>Mis Productos</h4>
+    <hr id="hr_cabecera"/>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="content">
+        <div id="products_row">
+            {% for product in products %}
+            <div class="column">
+                <div id="card-product" class="card mb-3">
+                    <h5 class="card-header">{{product.name}}</h5>
+                    <div class="card-image">
+                    {% if product.image != 'null' and product.image.url|length >= 1 %}
+                        <img class="card-image" src="{{product.image.url}}">
+                    {% else %}
+                        <img class="card-image" src="{% static 'images/no-imagen.png' %}">
+                    {% endif %}
+                    <text></text>
+                    </div>
+                    <div class="card-body">
+                        <strong class="card-text">{{product.brand}}-{{product.model}}</strong>
+                        <p>{{product.description}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            {% if product.public %}
+                                Estado: Publicado
+                            {% else %}
+                                Estado: No Publicado
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item">Precio: {{product.price}}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="{% url 'editar_producto' product.id %}" class="card-link">Editar</a>
+                        <a href="{% url 'eliminar_producto' product.id %}" class="card-link">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+        </div>
+    </div>
+{% include 'pagination.html' %}
+{% endblock %}

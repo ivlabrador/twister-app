@@ -1,0 +1,59 @@
+{% extends 'layout.html'%}
+{% load static %}
+{% block title %}
+    Productos en Almacen
+{% endblock %}
+
+
+{% block content %}
+
+    <h4>Listado de Almacenes &raquo; Almacen: {{warehouse.name}} &raquo; Todos Los Lotes</h4>
+    <hr id="hr_cabecera"/>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div id="content">
+        <div id="lot_list">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Almacen</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio U.</th>
+                        <th scope="col">Descuento</th>
+                        <th scope="col">Alerta</th>
+                        <th scope="col">Ver</th>
+                    </tr>
+                </thead>
+                {% for lot in lots %}
+                <tbody>
+                    <tr class="table table-light">
+                        <td>{{lot.product.name}}</td>
+                        <td>{{lot.warehouse.name}}</td>
+                        <td>{{lot.quantity}}</td>
+                        <td>{{lot.product.price}}</td>
+                        <td>{{ lot.off_porc }}</td>
+                        <td>{{lot.min_alert}}</td>
+                        <td><a href="#">Ver</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr class="table table-light">
+                        <td colspan="8" class="text-center">No tienes lotes cargados</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% include 'pagination.html' %}
+{% endblock %}
